@@ -1,4 +1,5 @@
-// index.js
-import { greeting } from "./greeting.js";
+import { createNote } from "./logic.js";
+import { displayNote } from "./display.js";
 
-console.log(greeting);
+let testNote = createNote("newNote", "testNote", "today", "red")
+displayNote(testNote)
