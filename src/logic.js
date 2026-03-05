@@ -1,8 +1,9 @@
 export {createNote, addNoteTo}
 
 const library = {
-  fleeting: [],
-  thrash: [],
+  entry: [],
+  today: [],
+  soon: [],
 };
 
 function createNote(noteName, noteDescription, noteDueDate, notePriority) {
@@ -18,20 +19,6 @@ function createNote(noteName, noteDescription, noteDueDate, notePriority) {
     priority,
   };
 };
-
-// function addNoteTo(note) {};
-
-// function removeNoteFrom(note) {}
-
-// addNoteTo.library = function (note) {
-//   library.push(note);
-//   console.log(library);
-// };
-
-// removeNoteFrom.library = function (note) {
-//   library.pop(note);
-//   console.log(library);
-// };
 
 function addNoteTo(listName, note) {
   if (library[listName]) {
