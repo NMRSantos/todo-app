@@ -1,5 +1,7 @@
-export {createNote}
-  
+export {createNote, addToLibrary}
+
+const noteLibrary = [];
+
 function createNote(noteName, noteDescription, noteDueDate, notePriority) {
   const name = noteName;
   const description = noteDescription;
@@ -13,3 +15,8 @@ function createNote(noteName, noteDescription, noteDueDate, notePriority) {
     priority,
   };
 };
+
+function addToLibrary(note) {
+  noteLibrary.push(note);
+  console.log(noteLibrary)
+}
