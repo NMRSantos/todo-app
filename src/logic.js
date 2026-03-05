@@ -1,6 +1,9 @@
-export {createNote, addToLibrary}
+export {createNote, addNoteTo}
 
-const noteLibrary = [];
+const library = {
+  fleeting: [],
+  thrash: [],
+};
 
 function createNote(noteName, noteDescription, noteDueDate, notePriority) {
   const name = noteName;
@@ -16,7 +19,23 @@ function createNote(noteName, noteDescription, noteDueDate, notePriority) {
   };
 };
 
-function addToLibrary(note) {
-  noteLibrary.push(note);
-  console.log(noteLibrary)
+// function addNoteTo(note) {};
+
+// function removeNoteFrom(note) {}
+
+// addNoteTo.library = function (note) {
+//   library.push(note);
+//   console.log(library);
+// };
+
+// removeNoteFrom.library = function (note) {
+//   library.pop(note);
+//   console.log(library);
+// };
+
+function addNoteTo(listName, note) {
+  if (library[listName]) {
+    library[listName].push(note);
+  }
+    console.log(library[listName]);
 }
