@@ -1,4 +1,4 @@
-export {createNote, addNoteTo}
+export {createNote, addNoteTo, library}
 
 const library = {
   entry: [],
