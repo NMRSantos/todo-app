@@ -1,4 +1,4 @@
-export {createNote, addNoteTo, library}
+export {createNote, addNoteTo, library};
 
 const library = {
   entry: [],
@@ -6,14 +6,13 @@ const library = {
   soon: [],
 };
 
-function createNote(noteName, noteDescription, noteDueDate, notePriority) {
-  const name = noteName;
+
+function createNote(noteDescription, noteDueDate, notePriority) {
   const description = noteDescription;
   const dueDate = noteDueDate;
   const priority = notePriority;
-
+  
   return {
-    name,
     description,
     dueDate,
     priority,
@@ -23,6 +22,8 @@ function createNote(noteName, noteDescription, noteDueDate, notePriority) {
 function addNoteTo(listName, note) {
   if (library[listName]) {
     library[listName].push(note);
-  }
-    console.log(library[listName]);
-}
+  };
+  console.log(library[listName]);
+};
+
+localStorage.setItem("noteGroups", "library");

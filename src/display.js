@@ -1,9 +1,9 @@
 import { library } from "./logic.js";
+import { createElement } from "./helper.js";
 
 export {displayNote, displayPage}
 
 function displayNote(note) {
-  console.log(note.name);
   console.log(note.description);
   console.log(note.dueDate);
   console.log(note.priority);
@@ -13,74 +13,66 @@ function displayPage() {
   
   const content = document.getElementById("content");
   
-  const sidePanel = document.createElement("div");
-  sidePanel.className = "panel";
-  sidePanel.id = "side-panel";
-  const mainPanel = document.createElement("div");
-  mainPanel.className = "panel";
-  mainPanel.id = "main-panel";
+  const sidePanel = createElement("div", "panel", "side-panel");
+  const mainPanel = createElement("div", "panel", "main-panel");
   
   content.appendChild(sidePanel);
   content.appendChild(mainPanel);
 
   for (let key in library) {
-    const sidePanelSlot = document.createElement("div");
-    sidePanelSlot.className = "side-panel-slot";
-    sidePanelSlot.id = `${key}`;
+    const sidePanelSlot = createElement("div", "side-panel-slot", `${key}`);
     
-    const SidePanelSlotText = document.createElement("p");
-    SidePanelSlotText.className = "side-panel-slot-text";
+    const SidePanelSlotText = createElement("p", "side-panel-slot-text", "");
     SidePanelSlotText.textContent = `${key}`;
     
     sidePanel.appendChild(sidePanelSlot);
     sidePanelSlot.appendChild(SidePanelSlotText);
   };
 
-  const noteForm = document.createElement("form");
-  noteForm.setAttribute('action',"submit.php");
-  noteForm.setAttribute('method',"post");
+  const noteForm = createElement("form", "form", "form");
   
-  const noteFormInput = document.createElement("input"); //input element, text
+  const noteFormInput = createElement("input", "input", "note-text-input");
   noteFormInput.setAttribute('type',"text");
-  noteFormInput.setAttribute('name',"note-text");
+  noteFormInput.setAttribute('name',"text-imput");
   
-  const noteFormDueDate = document.createElement("input");
+  const noteFormDueDate = createElement("input", "input", "note-due-date");
   noteFormDueDate.setAttribute(`type`, "date");
   noteFormDueDate.setAttribute(`name`, "due-date");
+  const labelDueDate = createElement("label", "input-label", "note-label-due-date");
+  labelDueDate.setAttribute(`for`, "note-due-date");
+  labelDueDate.textContent = "Due Date";
   
-  const noteFormPriorityLow = document.createElement("input");
-  noteFormPriorityLow.setAttribute(`type`, "checkbox");
+  const noteFormPriorityLow = createElement("input", "input", "note-priority-low");
+  noteFormPriorityLow.setAttribute(`type`, "radio");
   noteFormPriorityLow.setAttribute(`value`, "low");
-  noteFormPriorityLow.setAttribute(`name`, "due-date");
-  noteFormPriorityLow.setAttribute(`id`, "due-date");
-  const labelLow = document.createElement("label");
-  labelLow.setAttribute(`for`, "id")
-  labelLow.innerHTML = "Low"
-
-  const noteFormPriorityMedium = document.createElement("input");
-  noteFormPriorityMedium.setAttribute(`type`, "checkbox");
-  noteFormPriorityMedium.setAttribute(`value`, "low");
-  noteFormPriorityMedium.setAttribute(`name`, "due-date");
-  noteFormPriorityMedium.setAttribute(`id`, "due-date");
-  const labelMedium = document.createElement("label");
-  labelMedium.setAttribute(`for`, "id")
-  labelMedium.innerHTML = "Medium"
+  noteFormPriorityLow.setAttribute(`name`, "priority");
+  const labelLow = createElement("label", "input-label", "note-priority-low");
+  labelLow.setAttribute(`for`, "note-priority-low");
+  labelLow.textContent = "Low";
   
-  const noteFormPriorityHigh = document.createElement("input");
-  noteFormPriorityHigh.setAttribute(`type`, "checkbox");
-  noteFormPriorityHigh.setAttribute(`value`, "low");
-  noteFormPriorityHigh.setAttribute(`name`, "due-date");
-  noteFormPriorityHigh.setAttribute(`id`, "due-date");
-  const labelHigh = document.createElement("label");
-  labelHigh.setAttribute(`for`, "id")
-  labelHigh.innerHTML = "High"
+  const noteFormPriorityMedium = createElement("input", "input", "note-priority-medium");
+  noteFormPriorityMedium.setAttribute(`type`, "radio");
+  noteFormPriorityMedium.setAttribute(`value`, "mediu");
+  noteFormPriorityMedium.setAttribute(`name`, "priority");
+  const labelMedium = createElement("label", "input-label", "note-label-medium");
+  labelMedium.setAttribute(`for`, "note-priority-medium");
+  labelMedium.textContent = "Medium";
   
-  const noteFormButton = document.createElement("input");
-  noteFormButton.setAttribute('type',"submit");
+  const noteFormPriorityHigh = createElement("input", "input", "note-priority-high");
+  noteFormPriorityHigh.setAttribute(`type`, "radio");
+  noteFormPriorityHigh.setAttribute(`value`, "high");
+  noteFormPriorityHigh.setAttribute(`name`, "priority");
+  const labelHigh = createElement("label", "input-label", "note-label-high");
+  labelHigh.setAttribute(`for`, "note-priority-high");
+  labelHigh.textContent = "High";
+  
+  const noteFormButton = createElement("input", "input", "note-button");
+  noteFormButton.setAttribute('type',"button");
   noteFormButton.setAttribute('value',"Submit");
   
   noteForm.appendChild(noteFormInput);
   noteForm.appendChild(noteFormDueDate);
+  noteForm.appendChild(labelDueDate);
   noteForm.appendChild(noteFormPriorityLow);
   noteForm.appendChild(labelLow);
   noteForm.appendChild(noteFormPriorityMedium)
@@ -90,4 +82,31 @@ function displayPage() {
   noteForm.appendChild(noteFormButton);
   
   mainPanel.appendChild(noteForm);
+  
+  noteFormButton.addEventListener("click", function() {
+    const userNote = createElement("div", "user-note", "");
+    const userNoteText = createElement("p", "", "");
+    userNoteText.textContent = noteFormInput.value;
+    const userNoteDueDate = createElement("p", "", "");
+    userNoteDueDate.textContent = noteFormDueDate.value;
+    
+    mainPanel.appendChild(userNote);
+    userNote.appendChild(userNoteText);
+    userNote.appendChild(userNoteDueDate);
+
+    const selectedPriority = document.querySelector('input[name="priority"]:checked');
+    let userPriority;
+
+    if(selectedPriority) {
+      userPriority = selectedPriority.value;
+    } else {
+      userPriority = "";
+    };
+
+    if (userPriority) {
+      const priorityEl = createElement("p", "", "");
+      priorityEl.textContent = userPriority.charAt(0).toUpperCase() + userPriority.slice(1);
+      userNote.appendChild(priorityEl);
+    };
+  });
 };

@@ -40,7 +40,19 @@
 }
 
 form {
-display: flex;
-flex-direction: row;
-gap: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 30px;
+}
+
+#note-text-input {
+    border: 1px black solid;
+}
+
+.user-note {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 30px;
 }
