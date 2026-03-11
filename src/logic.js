@@ -7,8 +7,8 @@ const library = {
 };
 
 
-function createNote(noteDescription, noteDueDate, notePriority) {
-  const description = noteDescription;
+function createNote(noteText, noteDueDate, notePriority) {
+  const description = noteText;
   const dueDate = noteDueDate;
   const priority = notePriority;
   

@@ -11,8 +11,8 @@ function createForm(formType, formName, formValue, id) {
     const element = document.createElement("form");
     element.className = `${className}`;
     element.id = `${idName}`;
-    element.setAtribute(`type`, `${formType}`);
-    element.setAtribute(`name`, `${formName}`);
-    element.setAtribute(`value`, `${formValue}`);
+    element.setAttribute(`type`, `${formType}`);
+    element.setAttribute(`name`, `${formName}`);
+    element.setAttribute(`value`, `${formValue}`);
     element.id = `${id}`;
 };

@@ -1,4 +1,4 @@
-import { library } from "./logic.js";
+import { createNote, library } from "./logic.js";
 import { createElement } from "./helper.js";
 
 export {displayNote, displayPage}
@@ -36,7 +36,7 @@ function displayPage() {
       
       const noteFormInput = createElement("input", "input", "note-text-input");
       noteFormInput.setAttribute('type',"text");
-      noteFormInput.setAttribute('name',"text-imput");
+      noteFormInput.setAttribute('name',"text-input");
       
       const noteFormDueDate = createElement("input", "input", "note-due-date");
       noteFormDueDate.setAttribute(`type`, "date");
@@ -88,35 +88,17 @@ function displayPage() {
 
       (function submitBtn() {
         noteFormButton.addEventListener("click", function() {
-          const selectedPriority = document.querySelector('input[name="priority"]:checked');
-
-          if(noteFormInput.value !== "" && noteFormDueDate.value !== "" && selectedPriority) {
-
-            const userNote = createElement("div", "user-note", "");
-            const userNoteText = createElement("p", "", "");
-            userNoteText.textContent = noteFormInput.value;
-            const userNoteDueDate = createElement("p", "", "");
-            userNoteDueDate.textContent = noteFormDueDate.value;
-            
-            mainPanel.appendChild(userNote);
-            userNote.appendChild(userNoteText);
-            userNote.appendChild(userNoteDueDate);
-        
-            let userPriority;
-        
-            if(selectedPriority) {
-              userPriority = selectedPriority.value;
-            } else {
-              userPriority = "";
-            };
-        
-            if (userPriority) {
-              const priorityElement = createElement("p", "", "");
-              priorityElement.textContent = userPriority.charAt(0).toUpperCase() + userPriority.slice(1);
-              userNote.appendChild(priorityElement);
-            };
-          } else return;
-        });
+          const noteText = noteFormInput.value;
+          const noteDueDate = noteFormDueDate.value;
+          const noteElementPriority = document.querySelector(`input[type="radio"]:checked`);
+          if(noteText && noteDueDate && noteElementPriority) {
+            const noteNotCapitalizedPriority = noteElementPriority.value;
+            const notePriority = noteNotCapitalizedPriority.charAt(0).toUpperCase() + noteNotCapitalizedPriority.slice(1);
+            const note = createNote(noteText, noteDueDate, notePriority);
+            noteForm.reset();
+            console.log(note);
+          } else return
+        })
       })();
     })();
   })();
