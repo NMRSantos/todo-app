@@ -26,4 +26,4 @@ function addNoteTo(listName, note) {
   console.log(library[listName]);
 };
 
-localStorage.setItem("noteGroups", "library");
+// localStorage.setItem("noteGroups", "library");
