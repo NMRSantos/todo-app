@@ -35,8 +35,7 @@ function renderSidePanel(content) {
     sidePanelSlot.appendChild(SidePanelSlotText);
 
     sidePanelSlot.addEventListener("click", function() {
-      const div = createElement("div", `button`, `${key}`);
-      noteDisplayer.appendChild(div);
+      displayNote(key);
     });
   };
 };
@@ -109,27 +108,29 @@ function renderForm() {
   noteFormButton.addEventListener("click", function() {
     const noteText = noteFormInput.value;
     const noteDueDate = noteFormDueDate.value;
-    const noteElementCategory = document.querySelector(`input[type="radio"]:checked`);
-    const noteElementPriority = document.querySelector(`input[type="radio"]:checked`);
+    const noteElementCategory = document.querySelector(`input[name="category"]:checked`);
+    const noteElementPriority = document.querySelector(`input[name="priority"]:checked`);
     if(noteText && noteDueDate && noteElementCategory && noteElementPriority) {
       const noteNotCapitalizedCategory = noteElementCategory.value;
       const noteCategory = noteNotCapitalizedCategory.charAt(0).toUpperCase() + noteNotCapitalizedCategory.slice(1);
       const noteNotCapitalizedPriority = noteElementPriority.value;
       const notePriority = noteNotCapitalizedPriority.charAt(0).toUpperCase() + noteNotCapitalizedPriority.slice(1);
       const note = createNote(noteText, noteDueDate, noteCategory, notePriority);
+
       addNoteTo(noteNotCapitalizedCategory, note);
       noteForm.reset();
-      displayNote("entry");
-      console.log(note);
-      console.log(library);
+      displayNote(noteNotCapitalizedCategory);
+
       return
     } else return
   });
 };
 
 function displayNote(listName) {
-  const note = createElement("p", "note", ``);
+  noteDisplayer.innerHTML = "";
+  console.log(library);
   library[listName].forEach(element => {
+    const note = createElement("p", "note", ``);
     note.innerText = `${element.description} // ${element.dueDate} // ${element.category} // ${element.priority}`;
     noteDisplayer.appendChild(note);
   });

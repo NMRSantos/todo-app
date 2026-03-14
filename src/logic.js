@@ -1,5 +1,4 @@
 export {createNote, addNoteTo, library};
-import { formatDistance, subDays } from "date-fns";
 
 const library = {
   entry: [],
@@ -26,4 +25,3 @@ function addNoteTo(listName, note) {
     library[listName].push(note);
   };
 };
-
