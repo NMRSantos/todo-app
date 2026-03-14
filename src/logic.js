@@ -23,7 +23,6 @@ function addNoteTo(listName, note) {
   if (library[listName]) {
     library[listName].push(note);
   };
-  console.log(library[listName]);
 };
 
 // localStorage.setItem("noteGroups", "library");

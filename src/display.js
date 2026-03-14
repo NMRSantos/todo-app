@@ -1,13 +1,8 @@
 import { addNoteTo, createNote, library } from "./logic.js";
 import { createElement } from "./helper.js";
 
-export {displayNote, displayPage}
+export {displayPage}
 
-function displayNote(note) {
-  console.log(note.description);
-  console.log(note.dueDate);
-  console.log(note.priority);
-};
 
 let mainPanel, noteForm, noteDisplayer;
 
@@ -99,7 +94,7 @@ function renderForm() {
   noteForm.appendChild(labelHigh);
   noteForm.appendChild(noteFormButton);
   
-  mainPanel.appendChild(noteForm);
+  mainPanel.insertBefore(noteForm, noteDisplayer);
   
   noteFormButton.addEventListener("click", function() {
     const noteText = noteFormInput.value;
@@ -111,9 +106,18 @@ function renderForm() {
       const note = createNote(noteText, noteDueDate, notePriority);
       addNoteTo("entry", note);
       noteForm.reset();
+      displayNote("entry");
       console.log(note);
       console.log(library);
       return
     } else return
+  });
+};
+
+function displayNote(listName) {
+  const note = createElement("p", "note", ``);
+  library[listName].forEach(element => {
+    note.innerText = `${element.description} // ${element.dueDate} // ${element.priority}`;
+    noteDisplayer.appendChild(note);
   });
 };
