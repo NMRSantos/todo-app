@@ -1,4 +1,4 @@
-export { createElement }
+export { createElement, setRadioAtributes }
 
 function createElement(typeName, className, idName) {
   const element = document.createElement(`${typeName}`);
@@ -7,12 +7,9 @@ function createElement(typeName, className, idName) {
   return element;
 };
 
-function createForm(formType, formName, formValue, id) {
-    const element = document.createElement("form");
-    element.className = `${className}`;
-    element.id = `${idName}`;
-    element.setAttribute(`type`, `${formType}`);
-    element.setAttribute(`name`, `${formName}`);
-    element.setAttribute(`value`, `${formValue}`);
-    element.id = `${id}`;
+function setRadioAtributes(element, value, name) {
+  element.setAttribute(`type`, "radio");
+  element.setAttribute(`value`, `${value}`);
+  element.setAttribute(`name`, `${name}`);
+  return element
 };
