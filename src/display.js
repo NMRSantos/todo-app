@@ -1,4 +1,4 @@
-import { addNoteTo, createNote, library } from "./logic.js";
+import { addNoteTo, createNote, library, setStorage, getStorage } from "./logic.js";
 import { createElement, setRadioAtributes } from "./helper.js";
 
 export {displayPage}
@@ -9,6 +9,7 @@ let mainPanel, noteForm, noteDisplayer;
 function displayPage() {
   const content = document.getElementById("content");
   
+  getStorage();
   renderSidePanel(content);
   renderMainPanel(content);
   renderForm();
@@ -120,8 +121,7 @@ function renderForm() {
       addNoteTo(noteNotCapitalizedCategory, note);
       noteForm.reset();
       displayNote(noteNotCapitalizedCategory);
-
-      return
+      setStorage();
     } else return
   });
 };

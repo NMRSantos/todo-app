@@ -1,6 +1,6 @@
-export {createNote, addNoteTo, library};
+export {createNote, addNoteTo, library, setStorage, getStorage};
 
-const library = {
+let library = {
   entry: [],
   important: [],
 };
@@ -24,4 +24,12 @@ function addNoteTo(listName, note) {
   if (library[listName]) {
     library[listName].push(note);
   };
+};
+
+function setStorage() {
+  localStorage.setItem("library-storage", JSON.stringify(library));
+};
+
+function getStorage() {
+  library = JSON.parse(localStorage.getItem("library-storage"));
 };
